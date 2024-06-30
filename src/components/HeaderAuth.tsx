@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { Button, buttonVariants } from '@/components/ui/button';
 
-export default async function AuthButton() {
+export default async function HeaderAuth() {
   const supabase = createClient();
 
   const {
@@ -15,12 +15,12 @@ export default async function AuthButton() {
 
     const supabase = createClient();
     await supabase.auth.signOut();
-    return redirect('/login');
+    return redirect('/');
   };
 
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
+    <div className="flex items-center gap-6">
+      <Link href="/p">Profile</Link>
       <form action={signOut}>
         <Button variant="default">Logout</Button>
       </form>

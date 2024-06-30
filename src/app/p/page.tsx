@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 
-export default async function ProtectedPage() {
+export default async function ProfilePage() {
   const supabase = createClient();
 
   const {
@@ -9,12 +9,15 @@ export default async function ProtectedPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return redirect('/login');
+    return redirect('/');
   }
 
   return (
     <div>
-      <h2>This is a protected route. You need to be logged in to get here</h2>
+      <h2>Profile page</h2>
+
+      <p>Email</p>
+      <p>{user.email}</p>
     </div>
   );
 }

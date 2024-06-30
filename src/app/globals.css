@@ -73,6 +73,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  h1 {
+    @apply text-4xl mb-8;
+  }
+  h2 {
+    @apply text-3xl mb-4;
+  }
 }
 
 @layer utilities {

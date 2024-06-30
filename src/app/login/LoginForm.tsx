@@ -30,19 +30,19 @@ export default function LoginForm() {
     },
   });
 
-  const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <Form {...form}>
       {state?.message !== '' && (
         <div className="text-red-500">{state.message}</div>
       )}
       <form
-        method="POST"
-        action={formAction}
-        ref={formRef}
-        onSubmit={form.handleSubmit(() => formRef.current?.submit())}
         className="space-y-8"
+        action={formAction}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formElement = e.target as HTMLFormElement;
+          form.handleSubmit(() => formAction(new FormData(formElement)))(e);
+        }}
       >
         <FormField
           control={form.control}
