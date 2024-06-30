@@ -14,11 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground">
-        <header>
+      <body className="min-h-screen">
+        <header className="container py-4 mb-4 border-b">
           <AuthButton />
         </header>
-        <main className="min-h-screen">{children}</main>
+        <main className="container">{children}</main>
       </body>
     </html>
   );
