@@ -1,19 +1,10 @@
 import LoginForm from './LoginForm';
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function LoginPage() {
   return (
-    <div className="flex-1 flex flex-col w-full sm:max-w-md justify-center gap-2 mx-auto">
+    <div className="sm:max-w-md mx-auto">
       <h1>Login</h1>
       <LoginForm />
-      {searchParams?.message && (
-        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-          {searchParams.message}
-        </p>
-      )}
     </div>
   );
 }
