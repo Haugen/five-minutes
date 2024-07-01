@@ -32,7 +32,7 @@ export default function AddTodoForm() {
 
   return (
     <Form {...form}>
-      {state?.message !== '' && (
+      {state && state?.message !== '' && (
         <div className="text-red-500">{state.message}</div>
       )}
       <form
@@ -51,7 +51,7 @@ export default function AddTodoForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input placeholder="name" {...field} />
               </FormControl>
               <FormMessage />
               <FormDescription>The name of your Todo</FormDescription>

@@ -27,9 +27,8 @@ export async function onAddTodoAction(
     .from('todos')
     .insert({ name: todoName, active: true });
 
-  console.log(error);
-
   if (error) {
+    console.error(error);
     return {
       message: 'Could not add Todo',
     };

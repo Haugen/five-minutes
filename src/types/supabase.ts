@@ -15,21 +15,21 @@ export type Database = {
           created_at: string
           id: number
           name: string | null
-          user: string | null
+          user_id: string | null
         }
         Insert: {
           active?: boolean | null
           created_at?: string
           id?: number
           name?: string | null
-          user?: string | null
+          user_id?: string | null
         }
         Update: {
           active?: boolean | null
           created_at?: string
           id?: number
           name?: string | null
-          user?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }

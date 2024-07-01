@@ -32,7 +32,7 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      {state?.message !== '' && (
+      {state && state?.message !== '' && (
         <div className="text-red-500">{state.message}</div>
       )}
       <form

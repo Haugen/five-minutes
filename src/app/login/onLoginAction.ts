@@ -32,6 +32,7 @@ export async function onLoginAction(
   });
 
   if (error) {
+    console.error(error);
     return {
       message: 'Could not authenticate',
       email: formData.get('email') as string,
