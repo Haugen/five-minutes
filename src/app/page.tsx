@@ -13,11 +13,15 @@ export default async function Index() {
     <div>
       <h1>Let's go!</h1>
       {user && (
-        <div>
-          <AddTodoDialog />
-        </div>
+        <>
+          <div>
+            <AddTodoDialog />
+          </div>
+          <div>
+            <TodoList user={user} />
+          </div>
+        </>
       )}
-      {user && <TodoList user={user} />}
     </div>
   );
 }
