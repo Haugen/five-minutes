@@ -1,10 +1,12 @@
 'use server';
 import { todoFormSchema } from '@/lib/form-schemas';
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 type FormState = {
-  message: string;
+  successMessage?: string;
+  error?: string;
 };
 
 export async function onAddTodoAction(
@@ -16,7 +18,7 @@ export async function onAddTodoAction(
 
   if (!parsed.success) {
     return {
-      message: 'Invalid form data',
+      error: 'Invalid form data',
     };
   }
 
@@ -30,9 +32,13 @@ export async function onAddTodoAction(
   if (error) {
     console.error(error);
     return {
-      message: 'Could not add Todo',
+      error: 'Could not add Todo',
     };
   }
 
-  return redirect('/add');
+  revalidatePath('/');
+
+  return {
+    successMessage: 'Your Todo was added!',
+  };
 }

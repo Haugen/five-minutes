@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
 import TodoList from '@/components/TodoList';
+import AddTodoDialog from '@/components/AddTodoDialog';
 
 export default async function Index() {
   const supabase = createClient();
@@ -12,7 +12,11 @@ export default async function Index() {
   return (
     <div>
       <h1>Let's go!</h1>
-      {user && <Link href="/add">Add a todo</Link>}
+      {user && (
+        <div>
+          <AddTodoDialog />
+        </div>
+      )}
       {user && <TodoList user={user} />}
     </div>
   );
