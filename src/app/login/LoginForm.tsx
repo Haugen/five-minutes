@@ -14,12 +14,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { loginFormSchema } from '@/lib/form-schemas';
-import { onLoginAction } from './onLoginAction';
+import { onLoginAction } from '@/utils/form-actions';
 
 export default function LoginForm() {
-  const [state, formAction] = useFormState(onLoginAction, {
-    message: '',
-  });
+  const [state, formAction] = useFormState(onLoginAction, {});
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -31,9 +29,7 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      {state && state?.message !== '' && (
-        <div className="text-red-500">{state.message}</div>
-      )}
+      {state?.error !== '' && <div className="text-red-500">{state.error}</div>}
       <form
         className="space-y-8"
         action={formAction}

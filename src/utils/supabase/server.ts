@@ -2,16 +2,10 @@ import { cookies } from 'next/headers';
 import { type CookieOptions, createServerClient } from '@supabase/ssr';
 import { Database } from '@/types/supabase';
 
-let serverClient: ReturnType<typeof createServerClient<Database>>;
-
 export function createClient() {
   const cookieStore = cookies();
 
-  if (serverClient) {
-    return serverClient;
-  }
-
-  serverClient = createServerClient<Database>(
+  return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -40,6 +34,4 @@ export function createClient() {
       },
     }
   );
-
-  return serverClient;
 }
