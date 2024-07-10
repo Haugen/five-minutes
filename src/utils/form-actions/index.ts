@@ -25,12 +25,13 @@ export async function onAddTodoAction(
   const todoName = formData.get('name') as string;
   const supabase = createClient();
 
-  const { error } = await supabase
+  const { data: addedTodo, error } = await supabase
     .from('todos')
-    .insert({ name: todoName, active: true });
+    .insert({ name: todoName, active: true })
+    .select('name');
 
-  if (error) {
-    console.error(error);
+  if (error && !addedTodo) {
+    console.error('Error in onAddTodoAction:', error?.message);
     return {
       error: 'Could not add Todo',
     };
@@ -39,7 +40,7 @@ export async function onAddTodoAction(
   revalidatePath('/');
 
   return {
-    successMessage: 'Your Todo was added!',
+    successMessage: `Your Todo "${addedTodo[0].name}" was created!`,
   };
 }
 
@@ -61,20 +62,18 @@ export async function onLoginAction(
   const password = formData.get('password') as string;
   const supabase = createClient();
 
-  const { data: user, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    console.error(error?.message);
+    console.error('Error in onLoginAction:', error?.message);
     return {
       error: 'Could not authenticate',
       email: formData.get('email') as string,
     };
   }
-
-  console.log(user);
 
   return redirect('/');
 }
@@ -87,6 +86,6 @@ export const onDeleteTodo = async (formData: FormData) => {
     await supabase.from('todos').delete().eq('id', todoId);
     revalidatePath('/');
   } catch (e) {
-    console.error('Failed to delete todo in TodoList', e);
+    console.error('Error in onDeleteTodo:', e);
   }
 };

@@ -17,10 +17,7 @@ import { todoFormSchema } from '@/lib/form-schemas';
 import { onAddTodoAction } from '@/utils/form-actions';
 
 export default function AddTodoForm() {
-  const [state, formAction] = useFormState(onAddTodoAction, {
-    successMessage: '',
-    error: '',
-  });
+  const [state, formAction] = useFormState(onAddTodoAction, {});
 
   const form = useForm<z.infer<typeof todoFormSchema>>({
     resolver: zodResolver(todoFormSchema),
