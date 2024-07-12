@@ -11,25 +11,28 @@ export type Database = {
     Tables: {
       todos: {
         Row: {
-          active: boolean | null
+          active: boolean
+          completed: boolean
           created_at: string
           id: number
-          name: string | null
-          user_id: string | null
+          name: string
+          user_id: string
         }
         Insert: {
-          active?: boolean | null
+          active?: boolean
+          completed?: boolean
           created_at?: string
           id?: number
-          name?: string | null
-          user_id?: string | null
+          name: string
+          user_id?: string
         }
         Update: {
-          active?: boolean | null
+          active?: boolean
+          completed?: boolean
           created_at?: string
           id?: number
-          name?: string | null
-          user_id?: string | null
+          name?: string
+          user_id?: string
         }
         Relationships: []
       }

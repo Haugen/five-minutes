@@ -6,7 +6,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
 import { Button } from './ui/button';
 import AddTodoForm from './AddTodoForm';
 
@@ -18,7 +17,7 @@ export default async function AddTodoDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Let's add a Todo</DialogTitle>
           <DialogDescription>
             Name your new Todo below, and click "Add Todo". It'll automatically
             be included in your active Todos.

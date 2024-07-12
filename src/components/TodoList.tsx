@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { User } from '@supabase/supabase-js';
-import TodoListDeleteButton from './TodoListDeleteButton';
+import { ToggleCompleteTodo } from './ToggleCompleteTodo';
 
 type Props = {
   user: User;
@@ -8,7 +8,11 @@ type Props = {
 
 export default async function TodoList({ user }: Props) {
   const supabase = createClient();
-  const todos = await supabase.from('todos').select('*').eq('user_id', user.id);
+  const todos = await supabase
+    .from('todos')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: true });
 
   return (
     <div className="mt-10">
@@ -17,10 +21,10 @@ export default async function TodoList({ user }: Props) {
         return (
           <div
             key={i}
-            className="flex justify-between items-center py-3 border-b last:border-none"
+            className="flex items-center gap-4 py-3 border-b last:border-none"
           >
-            <h3 className="text-xl">{todo.name}</h3>
-            <TodoListDeleteButton id={todo.id} />
+            <ToggleCompleteTodo id={todo.id} completed={todo.completed} />
+            <h3 className="text-3xl">{todo.name}</h3>
           </div>
         );
       })}

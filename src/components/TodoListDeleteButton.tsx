@@ -16,6 +16,8 @@ export default function TodoListDeleteButton({ id }: Props) {
   );
 }
 
+// Example on useFormStatus. Component needs to be inside a form with a form action.
+// Once done, we can use the formStatus to checks for things like "pending" state.
 const DeleteButton = () => {
   const formStatus = useFormStatus();
 
