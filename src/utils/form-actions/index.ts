@@ -78,14 +78,44 @@ export async function onLoginAction(
   return redirect('/');
 }
 
-export const onDeleteTodo = async (formData: FormData) => {
+export const onDeleteTodo = async (todoId: number) => {
   const supabase = createClient();
-  const todoId = formData.get('todoId') as string;
 
   try {
     await supabase.from('todos').delete().eq('id', todoId);
-    revalidatePath('/');
+    revalidatePath('/p');
   } catch (e) {
     console.error('Error in onDeleteTodo:', e);
+  }
+};
+
+export const onActiveToggleTodo = async (active: boolean, todoId: number) => {
+  const supabase = createClient();
+
+  try {
+    await supabase
+      .from('todos')
+      .update({ active: !active, completed: false })
+      .eq('id', todoId);
+    revalidatePath('/p');
+  } catch (e) {
+    console.error('Error in onActiveToggleTodo:', e);
+  }
+};
+
+export const onCompleteToggleTodo = async (
+  completed: boolean,
+  todoId: number
+) => {
+  const supabase = createClient();
+
+  try {
+    await supabase
+      .from('todos')
+      .update({ completed: !completed })
+      .eq('id', todoId);
+    revalidatePath('/');
+  } catch (e) {
+    console.error('Error in onCompleteToggleTodo:', e);
   }
 };

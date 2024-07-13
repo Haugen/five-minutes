@@ -17,6 +17,15 @@ export default async function AdminTodoList({ user }: { user: User }) {
 
         return <Todo todo={todo} key={i} />;
       })}
+
+      <h2 className="mt-10">Archived Todos</h2>
+      {todos.data?.map((todo, i) => {
+        if (todo.active) {
+          return null;
+        }
+
+        return <Todo todo={todo} key={i} />;
+      })}
     </div>
   );
 }
@@ -35,7 +44,7 @@ function Todo({ todo }: { todo: Tables<'todos'> }) {
         </div>
       </div>
       <div>
-        <SettingsMenu />
+        <SettingsMenu todo={todo} />
       </div>
     </div>
   );

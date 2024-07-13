@@ -12,6 +12,7 @@ export default async function TodoList({ user }: Props) {
     .from('todos')
     .select('*')
     .eq('user_id', user.id)
+    .eq('active', true)
     .order('created_at', { ascending: true });
 
   return (

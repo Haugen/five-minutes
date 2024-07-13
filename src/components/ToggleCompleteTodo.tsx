@@ -1,25 +1,7 @@
 'use client';
 import { Toggle } from '@/components/ui/toggle';
-import { createClient } from '@/utils/supabase/client';
+import { onCompleteToggleTodo } from '@/utils/form-actions';
 import { Check } from 'lucide-react';
-import { Dispatch, SetStateAction, useState } from 'react';
-
-const supabase = createClient();
-
-const onToggle = async (
-  pressed: boolean,
-  id: number,
-  setCompletedState: Dispatch<SetStateAction<boolean>>
-) => {
-  const { error } = await supabase
-    .from('todos')
-    .update({ completed: !pressed })
-    .eq('id', id);
-
-  if (!error) {
-    setCompletedState(!pressed);
-  }
-};
 
 export function ToggleCompleteTodo({
   id,
@@ -28,12 +10,16 @@ export function ToggleCompleteTodo({
   id: number;
   completed: boolean;
 }) {
-  const [completedState, setCompletedState] = useState<boolean>(completed);
+  const expandedOnCompleteToggleTodo = onCompleteToggleTodo.bind(
+    null,
+    completed,
+    id
+  );
 
   return (
     <Toggle
-      pressed={completedState}
-      onPressedChange={() => onToggle(completedState, id, setCompletedState)}
+      pressed={completed}
+      onPressedChange={async () => expandedOnCompleteToggleTodo()}
       aria-label="Toggle completed todo"
       className="h-24 w-24"
     >
