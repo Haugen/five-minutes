@@ -2,6 +2,7 @@
 import { Toggle } from '@/components/ui/toggle';
 import { onCompleteToggleTodo } from '@/utils/form-actions';
 import { Check } from 'lucide-react';
+import { useState } from 'react';
 
 export function ToggleCompleteTodo({
   id,
@@ -10,6 +11,7 @@ export function ToggleCompleteTodo({
   id: number;
   completed: boolean;
 }) {
+  const [completedState, setCompletedState] = useState<boolean>(completed);
   const expandedOnCompleteToggleTodo = onCompleteToggleTodo.bind(
     null,
     completed,
@@ -18,8 +20,11 @@ export function ToggleCompleteTodo({
 
   return (
     <Toggle
-      pressed={completed}
-      onPressedChange={async () => expandedOnCompleteToggleTodo()}
+      pressed={completedState}
+      onPressedChange={async () => {
+        setCompletedState(!completed);
+        expandedOnCompleteToggleTodo();
+      }}
       aria-label="Toggle completed todo"
       className="h-24 w-24"
     >
